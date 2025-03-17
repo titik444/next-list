@@ -11,7 +11,7 @@ type Props = {
 
 type TaskTypeItems = "task" | "milestone" | "project";
 
-const TimelineView = ({ id, setIsModalNewTaskOpen }: Props) => {
+const Timeline = ({ id, setIsModalNewTaskOpen }: Props) => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
   const {
     data: tasks,
@@ -48,7 +48,7 @@ const TimelineView = ({ id, setIsModalNewTaskOpen }: Props) => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred while fetching tasks</div>;
+  if (error || !tasks) return <div>An error occurred while fetching tasks</div>;
 
   return (
     <div className="px-4 xl:px-6">
@@ -76,8 +76,8 @@ const TimelineView = ({ id, setIsModalNewTaskOpen }: Props) => {
             {...displayOptions}
             columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
             listCellWidth="100px"
-            barBackgroundColor={isDarkMode ? "#101214" : "aeb8c2"}
-            barBackgroundSelectedColor={isDarkMode ? "#000" : "#9ba1e6"}
+            barBackgroundColor={isDarkMode ? "#101214" : "#aeb8c2"}
+            barBackgroundSelectedColor={isDarkMode ? "#000" : "#9ba1a6"}
           />
         </div>
         <div className="px-4 pb-5 pt-1">
@@ -93,4 +93,4 @@ const TimelineView = ({ id, setIsModalNewTaskOpen }: Props) => {
   );
 };
 
-export default TimelineView;
+export default Timeline;
