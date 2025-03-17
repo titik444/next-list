@@ -68,6 +68,7 @@ const TaskColumn = ({
   }));
 
   const tasksCount = tasks.filter((task) => task.status === status).length;
+
   const statusColor: any = {
     "To Do": "#2563EB",
     "Work In Progress": "#059669",
@@ -80,20 +81,19 @@ const TaskColumn = ({
       ref={(instance) => {
         drop(instance);
       }}
-      className={`rounded-lg py-2 xl:px-2 xl:py-4 ${isOver ? "bg-blue-100 dark:bg-neutral-950" : ""}`}
+      className={`sl:py-4 rounded-lg py-2 xl:px-2 ${isOver ? "bg-blue-100 dark:bg-neutral-950" : ""}`}
     >
       <div className="mb-3 flex w-full">
         <div
           className={`w-2 !bg-[${statusColor[status]}] rounded-s-lg`}
           style={{ backgroundColor: statusColor[status] }}
         />
-
-        <div className="flex w-full items-center justify-between rounded-e-lg bg-white px-5 py-4">
+        <div className="flex w-full items-center justify-between rounded-e-lg bg-white px-5 py-4 dark:bg-dark-secondary">
           <h3 className="flex items-center text-lg font-semibold dark:text-white">
             {status}{" "}
             <span
-              className="ml-2 inline-block w-[1.5rem] rounded-full bg-gray-200 p-1 text-center leading-none dark:bg-dark-tertiary"
-              style={{ width: "1.5rem", height: "1.5.rem" }}
+              className="ml-2 inline-block rounded-full bg-gray-200 p-1 text-center text-sm leading-none dark:bg-dark-tertiary"
+              style={{ width: "1.5rem", height: "1.5rem" }}
             >
               {tasksCount}
             </span>
@@ -139,7 +139,6 @@ const Task = ({ task }: TaskProps) => {
   const formattedStartDate = task.startDate
     ? format(new Date(task.startDate), "P")
     : "";
-
   const formattedDueDate = task.dueDate
     ? format(new Date(task.dueDate), "P")
     : "";
@@ -169,11 +168,13 @@ const Task = ({ task }: TaskProps) => {
       ref={(instance) => {
         drag(instance);
       }}
-      className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary ${isDragging ? "opacity-50" : "opacity-100"}`}
+      className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary ${
+        isDragging ? "opacity-50" : "opacity-100"
+      }`}
     >
       {task.attachments && task.attachments.length > 0 && (
         <Image
-          src={`/${task.attachments[0].fileUrl}`}
+          src={`/${task.attachments[0].fileURL}`}
           alt={task.attachments[0].fileName}
           width={400}
           height={200}
@@ -217,11 +218,11 @@ const Task = ({ task }: TaskProps) => {
         <p className="text-sm text-gray-600 dark:text-neutral-500">
           {task.description}
         </p>
-        <div className="dark:border-storke-dark mt-4 border-t border-gray-200" />
+        <div className="mt-4 border-t border-gray-200 dark:border-stroke-dark" />
 
         {/* Users */}
         <div className="mt-3 flex items-center justify-between">
-          <div className="-space-[6px] flex overflow-hidden">
+          <div className="flex -space-x-[6px] overflow-hidden">
             {task.assignee && (
               <Image
                 key={task.assignee.userId}
@@ -232,7 +233,6 @@ const Task = ({ task }: TaskProps) => {
                 className="h-8 w-8 rounded-full border-2 border-white object-cover dark:border-dark-secondary"
               />
             )}
-
             {task.author && (
               <Image
                 key={task.author.userId}
