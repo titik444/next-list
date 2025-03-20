@@ -6,7 +6,7 @@ import { formatISO } from "date-fns";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  id: number;
+  id: string;
 };
 
 const ModalNewTask = ({ isOpen, onClose, id }: Props) => {
